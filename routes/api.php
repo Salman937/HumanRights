@@ -34,5 +34,29 @@ Route::group(['prefix' => 'user'], function() {
 				'uses' => 'Apis\RegisterUserComplaintController@index',
 				'as'   => 'complaint'
 			]);
+
+			Route::post('complaints',[
+
+				'uses' => 'Apis\UserComplaintsController@index',
+				'as'   => 'complaints'
+			]);
 	});
+});
+
+Route::group(['prefix' => 'categories'], function() {
+    
+	Route::group(['middleware' => 'auth:api'], function() 
+		{
+			Route::post('get',[
+
+				'uses' => 'Apis\CategoriesController@index',
+				'as'   => 'get'	
+			]);
+
+			Route::post('sub-cat',[
+
+				'uses' => 'Apis\CategoriesController@sub_categories',
+				'as'   => 'sub-cat'	
+			]);
+		});
 });

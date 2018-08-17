@@ -55,11 +55,9 @@ class RegisterUserComplaintController extends Controller
         {
             $image = $request->image;
 
-            $new_image = time().$image->getClientOriginalName();
+            $path = $image->store("complaints_data", 'public_storage');
 
-            $image->move('uploads/complaints_data',$new_image);
-
-            $img = 'uploads/complaints_data/'.$new_image;
+            $img = 'uploads/'.$path;
         }
 
         if ($request->hasFile('audio')) 
@@ -70,18 +68,28 @@ class RegisterUserComplaintController extends Controller
 
             $audio->move('uploads/complaints_data',$new_audio);
 
-            $upload_audio = 'uploads/user_images/'.$new_image;
+            $upload_audio = 'uploads/complaints_data/'.$new_audio;
         }
 
         if ($request->hasFile('video')) 
         {
             $video = $request->video;
 
-            $new_video = time().$video->getClientOriginalName();
+            $path = $video->store("complaints_data", 'public_storage');
+            // $new_video = time().$video->getClientOriginalName();
 
-            $video->move('uploads/complaints_data',$new_video);
+            // $video->move('uploads/complaints_data',$new_video);
 
-            $upload_video = 'uploads/user_images/'.$new_image;
+            $upload_video = 'uploads/'.$path;
+        }
+
+        if ($request->hasFile('document')) 
+        {
+            $doc_file = $request->document;
+
+            $path = $doc_file->store("complaints_data", 'public_storage');
+
+            $document_file = 'uploads/'.$path;
         }
 
 
@@ -97,9 +105,10 @@ class RegisterUserComplaintController extends Controller
     		'location'  			=> $request->location,
     		'person_email'  		=> $request->person_email,
     		'person_address'  		=> $request->person_address,
-    		'image'  				=> empty($img) ? 'Null': $request->image,
-    		'audio'  				=> empty($upload_audio) ? 'Null': $request->audio,
-    		'video'  				=> empty($upload_video) ? 'Null': $request->video,
+    		'image'  				=> empty($img) ? 'Null': $img,
+    		'audio'  				=> empty($upload_audio) ? 'Null': $upload_audio,
+            'video'                 => empty($upload_video) ? 'Null': $upload_video,
+    		'document_file'  		=> empty($document_file) ? 'Null': $document_file,
     		'created_at'     => date('Y-m-d H:i:s'),
             'updated_at'     => date('Y-m-d H:i:s'),
         ]);
