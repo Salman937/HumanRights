@@ -23,7 +23,7 @@ class CategoriesController extends Controller
 
     public function sub_categories(Request $request)
     {
-    	$sub_cat = DB::table('categories')->where('parent_id', $request->category_id)->get();
+    	$sub_cat = DB::table('categories')->where('level', 1)->get();
 
     	if ($sub_cat->isEmpty()) 
     	{
