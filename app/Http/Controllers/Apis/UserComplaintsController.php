@@ -41,7 +41,11 @@ class UserComplaintsController extends Controller
     		]);
     	}
 
-    	$complaint_details = DB::table('user_complaint_register')->where('user_id',$request->user_id)->first();
+    	$complaint_details = DB::table('user_complaint_register')
+             ->join('complaint_status','complaint_status.id','=','user_complaint_register.complaint_id')
+             ->where('user_id',$request->user_id)
+             ->get();
+
 
 		if ($complaint_details) 
 		{

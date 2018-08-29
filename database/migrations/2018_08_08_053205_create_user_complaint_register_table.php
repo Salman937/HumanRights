@@ -18,6 +18,7 @@ class CreateUserComplaintRegisterTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('complaint_type');
+            $table->string('complaint_id')->nullable();
             $table->string('sub_complaint_type');
             $table->string('subject');
             $table->string('details');
@@ -26,9 +27,10 @@ class CreateUserComplaintRegisterTable extends Migration
             $table->string('location');
             $table->string('person_email');
             $table->string('person_address');
-            $table->string('image');
-            $table->string('video');
-            $table->string('audio');
+            $table->string('image')->nullable();
+            $table->string('video')->nullable();
+            $table->string('audio')->nullable();
+            $table->string('document_file')->nullable();
             $table->timestamps();
         });
     }
