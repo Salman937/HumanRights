@@ -53,11 +53,15 @@ class RegisterUserComplaintController extends Controller
 
     	if ($request->hasFile('image')) 
         {
-            $image = $request->image;
+			$images = $request->image;
 
-            $path = $image->store("complaints_data", 'public_storage');
+			$imagesPath = [];    
 
-            $img = 'uploads/'.$path;
+			foreach($images as $image) 
+			{
+				$path = $image->store("complaints_data", 'public_storage');
+				$imagesPath[] = 'uploads/'.$path;
+			}
         }
 
         if ($request->hasFile('audio')) 
@@ -105,7 +109,7 @@ class RegisterUserComplaintController extends Controller
     		'location'  			=> $request->location,
     		'person_email'  		=> $request->person_email,
     		'person_address'  		=> $request->person_address,
-    		'image'  				=> empty($img) ? 'Null': $img,
+    		'image'  				=> empty($imagesPath) ? 'Null': implode('|', $imagesPath),
     		'audio'  				=> empty($upload_audio) ? 'Null': $upload_audio,
             'video'                 => empty($upload_video) ? 'Null': $upload_video,
     		'document_file'  		=> empty($document_file) ? 'Null': $document_file,

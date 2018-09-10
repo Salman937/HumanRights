@@ -27,7 +27,7 @@ class CreateUserComplaintRegisterTable extends Migration
             $table->string('location');
             $table->string('person_email');
             $table->string('person_address');
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->string('video')->nullable();
             $table->string('audio')->nullable();
             $table->string('document_file')->nullable();
