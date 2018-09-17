@@ -58,5 +58,13 @@ Route::group(['prefix' => 'categories'], function() {
 				'uses' => 'Apis\CategoriesController@sub_categories',
 				'as'   => 'sub-cat'	
 			]);
+			
+			Route::post('Awareness',[
+			
+				'uses' => 'Apis\AwarenessController@index',
+				'as'   => 'Awareness'	
+			
+			]);
 		});
 });
+
