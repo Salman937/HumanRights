@@ -93,7 +93,7 @@ class RegisterUserComplaintController extends Controller
 
             $path = $doc_file->store("complaints_data", 'public_storage');
 
-            $document_file = 'uploads/'.$path;
+            $document_file = 'public/uploads/'.$path;
         }
 
 
