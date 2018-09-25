@@ -43,6 +43,15 @@ Route::group(['prefix' => 'user'], function() {
 	});
 });
 
+Route::group(['middleware' => 'auth:api'], function() 
+{
+		Route::post('announcements',[
+
+			'uses' => 'Apis\AnnouncementsController@index',
+			'as'   => 'announcements'
+		]);
+});
+
 Route::group(['prefix' => 'categories'], function() {
     
 	Route::group(['middleware' => 'auth:api'], function() 
