@@ -50,6 +50,11 @@ Route::group(['middleware' => 'auth:api'], function()
 			'uses' => 'Apis\AnnouncementsController@index',
 			'as'   => 'announcements'
 		]);
+		Route::post('phone_dir',[
+
+			'uses' => 'Apis\PhoneDirController@index',
+			'as'   => 'phone_dir'
+		]);
 });
 
 Route::group(['prefix' => 'categories'], function() {
