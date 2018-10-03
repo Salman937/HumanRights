@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Validator;
+use Mail;
+use App\Mail\Sendmail;
 
 class UsersController extends Controller
 {
@@ -41,7 +43,10 @@ class UsersController extends Controller
 			            'city'        => $request->city, 
 			            'password'    => bcrypt($request->password), 
 			            'api_token'   => str_random(60), 
-        ]);
+			            'verification_code'   => str_random(6), 
+		]);
+		
+		Mail::send(new Sendmail($user));
 
         return response()->json([
 
