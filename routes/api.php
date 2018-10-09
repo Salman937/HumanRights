@@ -100,3 +100,10 @@ Route::group(['prefix' => 'categories'], function() {
 		});
 });
 
+Route::get('test-notification',[
+			
+	'uses' => 'Apis\RegisterUserComplaintController@testing_notification',
+	'as'   => 'test-notification'	
+
+]);
+

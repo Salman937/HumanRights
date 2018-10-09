@@ -9,6 +9,7 @@ use Validator;
 use DB;
 use App\User;
 use Auth;
+use PushNotification;
 
 class RegisterUserComplaintController extends Controller
 {
@@ -109,6 +110,7 @@ class RegisterUserComplaintController extends Controller
     		'location'  			=> $request->location,
     		'person_email'  		=> $request->person_email,
     		'person_address'  		=> $request->person_address,
+    		'device_token'  		=> $request->device_token,
     		'image'  				=> empty($imagesPath) ? 'Null': implode(',', $imagesPath),
     		'audio'  				=> empty($upload_audio) ? 'Null': $upload_audio,
             'video'                 => empty($upload_video) ? 'Null': $upload_video,
@@ -123,5 +125,17 @@ class RegisterUserComplaintController extends Controller
                 'status'  => 200,
                 'message' => 'User Complaint Register',
         	]);
-    }
+	}
+	
+	public function testing_notification()
+	{	
+		echo "testing";die;
+		$get_token = User::get();
+
+		$deviceToken = $get_token[0]->device_token;
+
+		PushNotification::app('HumranRightsAndroid')
+						->to($deviceToken)
+						->send('Hello World, i`m a push message');
+	}
 }
