@@ -129,13 +129,22 @@ class RegisterUserComplaintController extends Controller
 	
 	public function testing_notification()
 	{	
-		echo "testing";die;
 		$get_token = User::get();
 
 		$deviceToken = $get_token[0]->device_token;
 
-		PushNotification::app('HumranRightsAndroid')
-						->to($deviceToken)
-						->send('Hello World, i`m a push message');
+		$androidDevices = [];
+		$androidDevices[] = PushNotification::Device($deviceToken);
+		$androidDevicesNotify = PushNotification::DeviceCollection($androidDevices);
+		$data = [
+			'title' => "Human Rights",
+			'body'  => 'Testing'
+			// 'request_id' => $clientRequest->id
+		];
+		$message = PushNotification::Message('Testing message', $data);
+		// dump($message);
+		$androidCollection = PushNotification::app('HumranRightsAndroid');
+		$androidCollection->adapter->setAdapterParameters(['sslverifypeer' => false]);
+		$androidCollection->to($androidDevicesNotify)->send($message);
 	}
 }
