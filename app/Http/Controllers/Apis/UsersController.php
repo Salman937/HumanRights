@@ -37,13 +37,14 @@ class UsersController extends Controller
 
 		$user = User::create([
 
-			            'name'        => $request->name,
-			            'mobile_no'   => $request->mobile_no,
-			            'cnic'  	  => $request->cnic,
-			            'email' 	  => $request->email,
-			            'city'        => $request->city, 
-			            'password'    => bcrypt($request->password), 
-			            'api_token'   => str_random(60), 
+			            'name'         => $request->name,
+			            'mobile_no'    => $request->mobile_no,
+			            'cnic'  	   => $request->cnic,
+			            'email' 	   => $request->email,
+						'city'         => $request->city, 
+						'device_token' => $request->device_token,
+			            'password'     => bcrypt($request->password), 
+			            'api_token'    => str_random(60), 
 			            'verification_code'   => str_random(6), 
 		]);
 		
