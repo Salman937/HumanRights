@@ -10,6 +10,7 @@ use DB;
 use App\User;
 use Auth;
 use PushNotification;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterUserComplaintController extends Controller
 {
@@ -60,8 +61,12 @@ class RegisterUserComplaintController extends Controller
 
 			foreach($images as $image) 
 			{
-				$path = $image->store("complaints_data", 'public_storage');
-				$imagesPath[] = 'uploads/'.$path;
+				$filename  = time().$image->getClientOriginalName();
+
+				Storage::put($filename, file_get_contents($image->getRealPath()));
+				
+				//  = $image->store("complaints_data", 'public_storage');
+				$imagesPath[] = $filename;
 			}
         }
 
