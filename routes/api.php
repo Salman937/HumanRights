@@ -58,6 +58,16 @@ Route::group(['prefix' => 'user'], function() {
 				'uses' => 'Apis\UserComplaintsController@index',
 				'as'   => 'complaints'
 			]);
+
+			Route::post('user_profile',[
+				'uses' => 'Apis\ProfileController@show',
+				'as'   => 'user_profile'
+			]);
+
+			Route::post('update_user_profile',[
+				'uses' => 'Apis\ProfileController@update',
+				'as'   => 'update_user_profile'
+			]);
 	});
 });
 

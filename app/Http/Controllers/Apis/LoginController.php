@@ -15,7 +15,7 @@ class LoginController extends Controller
     {
     	$validator = Validator::make($request->all(),[
 
-	    		'mobile_no'  => 'required',
+	    		'cnic'  	 => 'required',
 	    		'password' 	 => 'required',
 
 	    	]);
@@ -32,7 +32,7 @@ class LoginController extends Controller
 	    		]);
 	    	} 
 
-	    	if(Auth::attempt([ 'mobile_no' => $request->mobile_no , 'password' => $request->password]))
+	    	if(Auth::attempt([ 'cnic' => $request->cnic , 'password' => $request->password]))
 	    	{
 	    		//Authentication passed
 	    		
