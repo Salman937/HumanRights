@@ -100,6 +100,18 @@ Route::group(['prefix' => 'categories'], function() {
 				'uses' => 'Apis\CategoriesController@sub_categories',
 				'as'   => 'sub-cat'	
 			]);
+
+			Route::post('thrid-category',[
+
+				'uses' => 'Apis\CategoriesController@thrid_category',
+				'as'   => 'thrid-category'	
+			]);
+
+			Route::get('districts',[
+
+				'uses' => 'Apis\CategoriesController@districts',
+				'as'   => 'districts'	
+			]);
 			
 			Route::post('Awareness',[
 			
