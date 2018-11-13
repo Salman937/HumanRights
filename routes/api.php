@@ -89,24 +89,6 @@ Route::group(['prefix' => 'categories'], function() {
     
 	Route::group(['middleware' => 'auth:api'], function() 
 		{
-			Route::post('get',[
-
-				'uses' => 'Apis\CategoriesController@index',
-				'as'   => 'get'	
-			]);
-
-			Route::post('sub-cat',[
-
-				'uses' => 'Apis\CategoriesController@sub_categories',
-				'as'   => 'sub-cat'	
-			]);
-
-			Route::post('thrid-category',[
-
-				'uses' => 'Apis\CategoriesController@thrid_category',
-				'as'   => 'thrid-category'	
-			]);
-
 			Route::get('districts',[
 
 				'uses' => 'Apis\CategoriesController@districts',
@@ -120,6 +102,24 @@ Route::group(['prefix' => 'categories'], function() {
 			
 			]);
 		});
+		
+	Route::post('get',[
+
+		'uses' => 'Apis\CategoriesController@index',
+		'as'   => 'get'	
+	]);
+
+	Route::post('sub-cat',[
+
+		'uses' => 'Apis\CategoriesController@sub_categories',
+		'as'   => 'sub-cat'	
+	]);
+
+	Route::post('thrid-category',[
+
+		'uses' => 'Apis\CategoriesController@thrid_category',
+		'as'   => 'thrid-category'	
+	]);
 });
 
 Route::get('test-notification',[

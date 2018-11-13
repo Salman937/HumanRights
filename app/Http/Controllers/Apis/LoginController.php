@@ -16,8 +16,8 @@ class LoginController extends Controller
     	$validator = Validator::make($request->all(),[
 
 	    		'cnic'  	 => 'required',
-	    		'password' 	 => 'required',
-
+				'password' 	 => 'required',
+				'device_token' => 'required',
 	    	]);
 
 
@@ -35,10 +35,11 @@ class LoginController extends Controller
 	    	if(Auth::attempt([ 'cnic' => $request->cnic , 'password' => $request->password]))
 	    	{
 	    		//Authentication passed
-	    		
 	    		$user = Auth::user();
-	    		
-	    		// $user->save();
+				
+				$user->device_token = $request->device_token;	
+
+	    		$user->save();
 
 	    		return response()->json([
 	    			'success'   => 'true',
