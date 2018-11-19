@@ -23,6 +23,9 @@ class UsersController extends Controller
 			'city' => 'required',
 			'password' => 'required',
 			'device_token' => 'required',
+			'father_name' => 'required',
+			'gender' => 'required',
+			'address' => 'required',
 		]);
 
 		if ($validator->fails()) {
@@ -35,6 +38,8 @@ class UsersController extends Controller
 			]);
 		}
 
+		$code = str_random(6);
+
 		$user = User::create([
 
 			'name' => $request->name,
@@ -42,20 +47,30 @@ class UsersController extends Controller
 			'cnic' => $request->cnic,
 			'email' => $request->email,
 			'city' => $request->city,
+			'father_name' => $request->father_name,
+			'gender' => $request->gender,
+			'address' => $request->address,
 			'device_token' => $request->device_token,
 			'password' => bcrypt($request->password),
 			'api_token' => str_random(60),
-			'verification_code' => str_random(6),
+			'verification_code' => $code,
 		]);
 
-		Mail::send(new Sendmail($user));
+		$to = $request->email;
+
+		$subject = "Verfication Code";
+
+		$headers = "Content-Type: text/html; charset=UTF-8\r\n";
+
+		$msg = "Hi Dear,<br><br>This is your verification code: <b>$code</b> <br><br>Thanks";
+
+		$mail = mail($to, $subject, $msg, $headers);
 
 		return response()->json([
 
 			'success' => 'true',
 			'status' => 200,
 			'message' => 'We have send verification code to your email please check your email to verify your account',
-			'user_data' => $user
 		]);
 	}
 
@@ -118,16 +133,29 @@ class UsersController extends Controller
 				'message' => 'Please check your Email. Your Email does not exits in our database'
 			]);
 		} else {
+
+			$code = str_random(6);
+
+			$to = $request->email;
+
+			$subject = "Verfication Code";
+
+			$headers = "Content-Type: text/html; charset=UTF-8\r\n";
+
+			$msg = "Hi Dear,<br><br>This is your verification code: <b>$code</b> <br><br>Thanks";
+
+			$mail = mail($to, $subject, $msg, $headers);
+
 			$update_user = DB::table('users')
 				->where('email', $user->email)  // find your user by their email
 				->limit(1)  // optional - to ensure only one record is updated.
-				->update(array('verification_code' => str_random(6)));  // update the record in the DB.
+				->update(array('verification_code' => $code));  // update the record in the DB.
 
 			return response()->json([
 
 				'success' => 'ture',
 				'status' => 200,
-				'user' => $user
+				'message' => "We have send verification code to your email please check your email to verify your account"
 			]);
 		}
 	}
@@ -159,10 +187,45 @@ class UsersController extends Controller
 		} else {
 			return response()->json([
 
-				'success' => 'false',
+				'success' => 'true',
 				'status' => 200,
 				'user' => $user
 			]);
 		}
 	}
+
+	public function update_forgot_pass(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+
+                'success' => 'false',
+                'status' => '401',
+                'message' => 'Please Review All Fields',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $check = DB::table('users')->where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+
+        if ($check) {
+            return response()->json([
+
+                'success' => 'true',
+                'status' => '200',
+                'message' => "Password Updated Successfully",
+            ]);
+        } else {
+            return response()->json([
+
+                'success' => 'false',
+                'status' => '401',
+                'message' => 'Password Can not updated',
+            ]);
+        }
+    }
 }

@@ -27,22 +27,28 @@ Route::group(['prefix' => 'user'], function() {
 		'as'   => 'login'
 	]);
 
+	Route::post('', [
+
+		'uses' => 'Apis\UsersController@forgot_password',
+		'as'   => 'forgot-password'
+	]);
+
 	Route::post('verify-account', [
 
 		'uses' => 'Apis\UsersController@verify_account',
 		'as'   => 'verify-account'
 	]);
 
-	Route::post('forgot-password', [
-
-		'uses' => 'Apis\UsersController@forgot_password',
-		'as'   => 'forgot-password'
-	]);
-
 	Route::post('verify-forgot-password', [
 
 		'uses' => 'Apis\UsersController@verify_forgot_password',
 		'as'   => 'verify-forgot-password'
+	]);
+
+	Route::post('update-forgot-password', [
+
+		'uses' => 'Apis\UsersController@update_forgot_pass',
+		'as'   => 'update-forgot-password'
 	]);
 
 	Route::group(['middleware' => 'auth:api'], function() 
