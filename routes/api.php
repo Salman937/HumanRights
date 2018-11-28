@@ -128,7 +128,7 @@ Route::group(['prefix' => 'categories'], function() {
 	]);
 });
 
-Route::get('test-notification',[
+Route::post('test-notification',[
 			
 	'uses' => 'Apis\RegisterUserComplaintController@testing_notification',
 	'as'   => 'test-notification'	

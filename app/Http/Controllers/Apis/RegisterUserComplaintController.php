@@ -124,78 +124,60 @@ class RegisterUserComplaintController extends Controller
 		]);
 	}
 
-	public function testing_notification()
+	public function testing_notification(Request $request)
 	{
+		#API access key from Google API’s Console
 		define('API_ACCESS_KEY', 'AAAAr226zMg:APA91bHsEv3XCCM7aM5CCVAWt5Gi2ntBmYa5CI2HXmGK6qNLa4gEpTErrIK8BjEPGv8g549kp5Uni-urom5KIrukozzRFFPcPfAAUWIxXdTHAJ44kNmktDE-4Sx1E0d26bJGf1SgM5FR');
 
-
-		$data = DB::table('users')->get();
-
-		$arr = array();
-
-		foreach($data as $user)
-		{
-			$user_data[] = array(
-
-					'id' => $user->id,
-					'name' => $user->name,
-					'mobile_no' => $user->mobile_no,
-					'cnic' => $user->cnic,
-					'city' => $user->city,
+		$msg = array
+			(
+			'body'     => 'Someone needs your help!.',
+			'title'    => 'Attention!',
+					'icon'    => 'myicon',/*Default Icon*/
+					'sound' => 'mySound',/*Default sound*/
+					'vibrate' => 1,
+						'click_action' => 'ACTIVITY_DONOR',
 			);
-		}
+		$data = array
+		(
+			"city" => "swat",
+			"blood" => "B+",
+			"name" => "Salman",
+			"phone" => "098798798798"
+			);
+	
+		$fields = array
+				(
+					'to'        => $request->token,
+					'notification'    => $msg,
+					'data' => $data
+				);
 		
-		$msg = array(
-			'complain_data' => $arr,
-			'icon' => 'myicon',  /*Default Icon*/
-			'sound' => 'mySound',/*Default sound*/
-			'vibrate' => 1,
-			 
-			// activity name which will be called after notify
-			'click_action' => 'DetailListActivity'
+		
+		$headers = array
+				(
+					'Authorization: key='. API_ACCESS_KEY,
+					'Content-Type: application/json'
+				);
 
+		#Send Reponse To FireBase Server    
+				$ch = curl_init();
+				curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+				curl_setopt( $ch,CURLOPT_POST, true );
+				curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+				curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+				curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+				curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+				$result = curl_exec($ch );
+				curl_close( $ch );
+		#Echo Result Of FireBase Server
+		//echo $result;
 
-		);
-
-		$fields = array(
-
-			'to' => 'fvj31mJjX7w:APA91bHO1ZiPL7qIlHMSNhY21m-S4pkhf21UyO8TssgZa1bnikaeW0OErZHvn1aZ7bBtD2JSpt4aCuhQbtCdB-6ul0EIMBwWrCwT7JoEBG2OpdqnxTcASTX2OGYaEJXrnVBxb6BgnftI',
-
-			'msg' => 'This is First Notification from Human Righst',
-
-			'title' => "This Notification Title",
-
-			'data' => $msg,
-			'complaint_id' => 2
-
-		);
-
-		$headers = array(
-
-			'Authorization: key=' . API_ACCESS_KEY,
-
-			'Content-Type: application/json'
-
-		);
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-		$result = curl_exec($ch);
-		curl_close($ch);
-
-		// echo $result;
 		return response()->json([
 
 			'success' => 'true',
 			'status' => 200,
-			'message' => 'Notification Send',
-			'notification' => $fields
+			'data' => $fields
 		]);
-		// return $fields;
 	}
 }
