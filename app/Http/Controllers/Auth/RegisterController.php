@@ -27,7 +27,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
+<<<<<<< HEAD
     protected $redirectTo = '/user';
+=======
+    protected $redirectTo = '/home';
+>>>>>>> 99a0907e25af49a164f3a4387ea5a4219bc0a2d8
 
     /**
      * Create a new controller instance.
@@ -36,7 +40,11 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+<<<<<<< HEAD
         $this->middleware('auth');
+=======
+        $this->middleware('guest');
+>>>>>>> 99a0907e25af49a164f3a4387ea5a4219bc0a2d8
     }
 
     /**
