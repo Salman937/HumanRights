@@ -19,8 +19,7 @@
                             <th>First Category</th>
                             <th>Secound Category</th>
                             <th>Third Category</th>
-                            <th>Category Slug</th>
-                            <th>image</th>
+                            <th>Third Category Slug</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -29,9 +28,8 @@
                               <tr class="gradeX">
                                 <td>{{$cat->parent_cat}}</td>
                                 <td>{{$cat->sec_cat}}</td>
-                                <td>{{$cat->category}}</td>
-                                <td>{{$cat->category_slug}}</td>
-                                <td><img src="{{ $cat->image }}" alt="{{ $cat->image }}" width="70px" height="50px" style="border-radius:15px;"></td>
+                                <td>{{$cat->cat_name}}</td>
+                                <td>{{$cat->cat_slug}}</td>
                                 <td>
                                     <a href="{{ route('thirdcat.edit', [ 'id' => $cat->id]) }}" class="btn btn-primary btn-xs" title="Edit Colour"><i class="fa fa-pencil"> </i> </a>
 
@@ -62,7 +60,7 @@
                                 <select name="head_category" id="head_category" required class="form-control head_category">
                                     <option selected disabled >Select First Category</option>
                                     @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->category }}</option>
+                                        <option value="{{ $cat->id }}">{{ $cat->cat_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,11 +74,6 @@
                                 <label>Category <span class="text-danger">*</span></label> 
                                 <input type="text" placeholder="Enter Category Name" required name="category" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label>Third Category image <span class="text-danger">*</span></label> 
-                                <input type="file" required name="image" class="form-control">
-                            </div>
-                            <p>&nbsp;</p>
                             <div>
                                 <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Save</strong></button>
                             </div>
@@ -135,7 +128,7 @@ $(document).ready(function(){
                 .end()
                 .append('<option disabled selected>Select Secound Category</option>');
               $.each( data, function( index, value ){
-               $('.secound_cat').append($('<option value="'+value['id']+'">'+value['category']+'</option>'));
+               $('.secound_cat').append($('<option value="'+value['id']+'">'+value['cat_name']+'</option>'));
               });
             }
         },

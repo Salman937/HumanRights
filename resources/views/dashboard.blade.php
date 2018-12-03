@@ -10,7 +10,7 @@
                         <h5>All Complents</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">40 886,200</h1>
+                        <h1 class="no-margins">{{ $all_complants->all_complants }}</h1>
                         {{-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div> --}}
                         {{-- <small>Total income</small> --}}
                     </div>
@@ -23,7 +23,7 @@
                         <h5>Pending Complants</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">275,800</h1>
+                        <h1 class="no-margins">{{ $pending_complaints->pending_complaints }}</h1>
                         {{-- <div class="stat-percent font-bold text-info">&nbsp; <i class="fa fa-level-up"></i></div> --}}
                         {{-- <small>New orders</small> --}}
                     </div>
@@ -36,7 +36,7 @@
                         <h5>In-Progress Complaints</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">106,120</h1>
+                        <h1 class="no-margins">{{ $in_progress_complaints->in_progress_complaints }}</h1>
                         {{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
                         {{-- <small>New visits</small> --}}
                     </div>
@@ -49,7 +49,7 @@
                         <h5>Irrelevant Complaints</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">80,600</h1>
+                        <h1 class="no-margins">{{ $irrelevant_complaints->irrelevant_complaints }}</h1>
                         {{-- <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div> --}}
                         {{-- <small>In first month</small> --}}
                     </div>
@@ -62,7 +62,7 @@
                         <h5>Completed Complaints</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">65,200</h1>
+                        <h1 class="no-margins">{{ $completed_complaints->completed_complaints }}</h1>
                         {{-- <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div> --}}
                         {{-- <small>In first month</small> --}}
                     </div>
@@ -75,7 +75,7 @@
                         <h5>All Districts</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">32</h1>
+                        <h1 class="no-margins">{{ $all_districts->all_districts }}</h1>
                         {{-- <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div> --}}
                         {{-- <small>In first month</small> --}}
                     </div>
@@ -88,7 +88,7 @@
                         <h5>Announcements</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">122</h1>
+                        <h1 class="no-margins">{{ $announcements->announcements }}</h1>
                         {{-- <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div> --}}
                         {{-- <small>In first month</small> --}}
                     </div>

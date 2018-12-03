@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Category</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="category" value="{{ $category->category }}">
+                                <input type="text" class="form-control" name="category" value="{{ $category->cat_name }}">
                             </div>
                         </div>
                         <div class="form-group">

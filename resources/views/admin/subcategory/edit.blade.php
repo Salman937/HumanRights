@@ -14,12 +14,12 @@
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">head Category <span class="text-danger">*</span></label>
+                            <label class="col-sm-2 control-label">First Category <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
                                 <select name="head_category" id="head_category" class="form-control">
-                                    <option selected disabled >Select head Category</option>
+                                    <option selected disabled >Select First Category</option>
                                     @foreach($head_category as $cat)
-                                        <option value="{{ $cat->id }}" @if($cat->id == $category->parent_id) selected="selected" @endif>{{ $cat->category }}</option>
+                                        <option value="{{ $cat->id }}" @if($cat->id == $category->parent_id) selected="selected" @endif>{{ $cat->cat_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -27,12 +27,12 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Sub Category <span class="text-danger">*</span></label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="category" value="{{ $category->category }}">
+                                <input type="text" class="form-control" name="category" value="{{ $category->cat_name }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">Update Sub Category</button>
+                                <button class="btn btn-primary" type="submit">Update Category</button>
                             </div>
                         </div>
                     </form>

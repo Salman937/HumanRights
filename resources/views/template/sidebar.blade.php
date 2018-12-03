@@ -33,7 +33,7 @@
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Awareness</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-list"></i> <span class="nav-label">Annsouments</span></a>
+                <a href="{{ route('announcement.index') }}"><i class="fa fa-th-list"></i> <span class="nav-label">Announcements</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Districts</span></a>
@@ -41,9 +41,9 @@
             <li>
                 <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Categories</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">First Cateory</a></li>
-                    <li><a href="#">Secound Cateory</a></li>
-                    <li><a href="#">Thirs Cateory</a></li>
+                    <li><a href="{{ route('category.index') }}">First Cateory</a></li>
+                    <li><a href="{{ route('subcategory.index') }}">Secound Cateory</a></li>
+                    <li><a href="{{ route('third.category') }}">Third Cateory</a></li>
                 </ul>
             </li>
             <li>

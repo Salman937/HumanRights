@@ -9,7 +9,7 @@
                     <h5>{{ $heading }}</h5>
                     @include('include.error')
                     <div class="ibox-tools">
-                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add First Category</a>
+                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add Announcement</a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -17,24 +17,26 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                           <tr>
-                            <th>Category</th>
-                            <th>Category Slug</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Image</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $cat)
+                            @foreach($announcement as $ann)
                               <tr class="gradeX">
-                                <td>{{$cat->cat_name}}</td>
-                                <td>{{$cat->cat_slug}}</td>
+                                <td>{{$ann->title}}</td>
+                                <td>{{$ann->description}}</td>
+                                <td><img src="{{$ann->image}}" alt="{{$ann->image}}"  width="70px" height="50px" style="border-radius:15px;"></td>
                                 <td>
-                                    <form action="{{ URL::route('category.edit', [$cat->id]) }}" method="POST">
+                                    <form action="{{ URL::route('announcement.edit', [$ann->id]) }}" method="POST">
                                         <input type="hidden" name="_method" value="get">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-primary btn-xs" title="Edit"><i class="fa fa-pencil"> </i></button>
                                     </form>
 
-                                    <form action="{{ URL::route('category.destroy', [$cat->id]) }}" method="POST">
+                                    <form action="{{ URL::route('announcement.destroy', [$ann->id]) }}" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <button onclick=" return confirm('Are you sure you want to delete this record');" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"> </i></button>
@@ -56,13 +58,21 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Add First Category (Head Category)</h3>
+                        <h3 class="m-t-none m-b">Add Announcement</h3>
                         <p>&nbsp;</p>
-                        <form action="{{ route('category.store') }}" method="post" class="form-horizontal">
+                        <form action="{{ route('announcement.store') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Category <span class="text-danger">*</span></label> 
-                                <input type="text" placeholder="Enter Category Name" required name="category" class="form-control">
+                                <label>Title <span class="text-danger">*</span></label> 
+                                <input type="text" placeholder="Title" required name="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Description <span class="text-danger">*</span></label> 
+                                <input type="text" placeholder="Description" required name="description" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Image <span class="text-danger">*</span></label> 
+                                <input type="file" required name="image" class="form-control">
                             </div>
                             <p>&nbsp;</p>
                             <div>

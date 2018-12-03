@@ -26,8 +26,8 @@
                             @foreach($subcategories as $cat)
                               <tr class="gradeX">
                                 <td>{{$cat->parent_cat}}</td>
-                                <td>{{$cat->category}}</td>
-                                <td>{{$cat->category_slug}}</td>
+                                <td>{{$cat->cat_name}}</td>
+                                <td>{{$cat->cat_slug}}</td>
                                 <td>
                                     <form action="{{ URL::route('subcategory.edit', [$cat->id]) }}" method="POST">
                                         <input type="hidden" name="_method" value="get">
@@ -66,7 +66,7 @@
                                 <select name="head_category" id="head_category" required class="form-control">
                                     <option selected disabled >Select First Category</option>
                                     @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->category }}</option>
+                                        <option value="{{ $cat->id }}">{{ $cat->cat_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
