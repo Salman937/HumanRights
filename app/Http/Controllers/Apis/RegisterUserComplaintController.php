@@ -129,28 +129,28 @@ class RegisterUserComplaintController extends Controller
 		#API access key from Google API’s Console
 		define('API_ACCESS_KEY', 'AAAAr226zMg:APA91bHsEv3XCCM7aM5CCVAWt5Gi2ntBmYa5CI2HXmGK6qNLa4gEpTErrIK8BjEPGv8g549kp5Uni-urom5KIrukozzRFFPcPfAAUWIxXdTHAJ44kNmktDE-4Sx1E0d26bJGf1SgM5FR');
 
-		$msg = array
-			(
-			'body'     => 'Someone needs your help!.',
-			'title'    => 'Attention!',
-					'icon'    => 'myicon',/*Default Icon*/
-					'sound' => 'mySound',/*Default sound*/
-					'vibrate' => 1,
-						'click_action' => 'ACTIVITY_DONOR',
-			);
 		$data = array
 		(
 			"city" => "swat",
 			"blood" => "B+",
 			"name" => "Salman",
 			"phone" => "098798798798"
-			);
+		);
+
+		$arr = array(
+			'complaint_id' => 1,
+			'user_id' => 2,
+		);
 	
 		$fields = array
 				(
-					'to'        => $request->token,
-					'notification'    => $msg,
-					'data' => $data
+					'body'         => 'Someone needs your help!.',
+					'title'        => 'Attention!',
+					'icon'         => 'myicon',/*Default Icon*/
+					'sound' 	   => 'mySound',/*Default sound*/
+					'vibrate' 	   => 1,
+					'click_action' => 'ACTIVITY_DONOR',
+					'complain_data' => $arr,
 				);
 		
 		
@@ -177,6 +177,7 @@ class RegisterUserComplaintController extends Controller
 
 			'success' => 'true',
 			'status' => 200,
+			'to'           => $request->token,
 			'data' => $fields
 		]);
 	}
