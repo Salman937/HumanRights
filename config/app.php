@@ -163,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
+        // 'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
 
         /*
          * Package Service Providers...
