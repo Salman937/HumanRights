@@ -26,7 +26,7 @@
             <li>
                 <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">All Complaints</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Complaints</a></li>
+                    <li><a href="{{ route('complaint.index') }}">Complaints</a></li>
                 </ul>
             </li>
             <li>
