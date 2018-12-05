@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('subcategory', 'admin\SubcategoryController');
 	Route::resource('announcement', 'admin\AnnouncementController');
 	Route::resource('complaint', 'admin\ComplaintsController');
+	Route::resource('awareness', 'admin\AwarenessController');
+	Route::resource('district', 'admin\DistrictsController');
 });
 
 Route::group(['middleware' => 'auth'], function () {

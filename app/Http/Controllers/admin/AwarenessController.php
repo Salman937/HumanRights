@@ -4,11 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Awareness;
 use DB;
 use Session;
-use App\Announcement;
 
-class AnnouncementController extends Controller
+class AwarenessController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,10 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $data['heading']    = 'Announcement List';
-        $data['announcement'] = DB::table('announcements')
-                                        ->get();
+        $data['heading']    = 'Awareness List';
+        $data['awareness'] = Awareness::all();
 
-        return view('admin.announcement.list')->with($data);
+        return view('admin.awareness.list')->with($data);
     }
 
     /**
@@ -48,22 +47,22 @@ class AnnouncementController extends Controller
             'image' => 'required|image'
         ]);
 
-        $announcement = new Announcement;
+        $awareness = new Awareness;
         
         $featured = $request->image;
         $featured_image_name = time().$featured->getClientOriginalName();
-        $featured->move('uploads/announcement/',$featured_image_name);
+        $featured->move('uploads/awareness/',$featured_image_name);
 
 
-        $announcement->title = $request->title;
-        $announcement->description = $request->description;
-        $announcement->image = asset('uploads/announcement/'.$featured_image_name);
+        $awareness->title = $request->title;
+        $awareness->description = $request->description;
+        $awareness->image = asset('uploads/awareness/'.$featured_image_name);
         
-        $announcement->save();
+        $awareness->save();
 
         Session::flash('success','Your data is save.');
         
-        return redirect()->route('announcement.index');
+        return redirect()->route('awareness.index');
     }
 
     /**
@@ -85,11 +84,9 @@ class AnnouncementController extends Controller
      */
     public function edit($id)
     {
-        $data['heading'] = 'Edit Announcement';
-        $data['announcement'] = DB::table('announcements')
-                                ->where('id', $id)
-                                ->first();
-        return view('admin.announcement.edit')->with($data);
+        $data['heading'] = 'Edit Awareness';
+        $data['awareness'] = Awareness::find($id);
+        return view('admin.awareness.edit')->with($data);
     }
 
     /**
@@ -107,27 +104,27 @@ class AnnouncementController extends Controller
             // 'image' => 'required|image'
         ]);
 
-        $announcement = Announcement::find($id);
+        $awareness = Awareness::find($id);
 
         if (!empty($request->image)) {
             $featured = $request->image;
             $featured_image_name = time().$featured->getClientOriginalName();
-            $featured->move('uploads/announcement/',$featured_image_name);
-            $announcement->image = asset('uploads/announcement/'.$featured_image_name);
+            $featured->move('uploads/awareness/',$featured_image_name);
+            $awareness->image = asset('uploads/awareness/'.$featured_image_name);
         }
         else{
-            $announcement->image = $request->pre_image;
+            $awareness->image = $request->pre_image;
         }
 
 
-        $announcement->title = $request->title;
-        $announcement->description = $request->description;
+        $awareness->title = $request->title;
+        $awareness->description = $request->description;
         
-        $announcement->save();
+        $awareness->save();
 
         Session::flash('success','Your Data Is Updated.');
         
-        return redirect()->route('announcement.index');
+        return redirect()->route('awareness.index');
     }
 
     /**
@@ -138,7 +135,7 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('announcements')->where('id', $id)->delete();
+        DB::table('awareness')->where('id', $id)->delete();
 
         Session::flash('success','Record is deleted seccussfully');
         return redirect()->back();
