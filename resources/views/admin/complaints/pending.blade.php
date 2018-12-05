@@ -27,24 +27,16 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach($complaints as $complaint)
+                            @foreach($pending_complaints as $pending_complaint)
                                 <tr>
-                                    <td>{{ $complaint->name }}</td>
-                                    <td>{{ $complaint->mobile_no }}</td>
-                                    <td>{{ $complaint->cnic }}</td>
-                                    <td>{{ $complaint->details }}</td>
-                                    <td>{{ $complaint->complaint_type }}</td>
+                                    <td>{{ $pending_complaint->name }}</td>
+                                    <td>{{ $pending_complaint->mobile_no }}</td>
+                                    <td>{{ $pending_complaint->cnic }}</td>
+                                    <td>{{ $pending_complaint->details }}</td>
+                                    <td>{{ $pending_complaint->complaint_type }}</td>
                                     <td>
-                                        @if($complaint->complaint_status == 'Pending')
+                                        @if($pending_complaint->status_id == 1)
                                             <span class="label label-default">Pending</span>
-                                        @elseif($complaint->complaint_status == 'Completed')
-                                            <span class="label label-primary">Completed</span>
-                                        @elseif($complaint->complaint_status == 'In Progress')
-                                            <span class="label label-success">In Progress</span>
-                                        @elseif($complaint->complaint_status == 'Irrelevant')
-                                            <span class="label label-info">Irrelevant</span>
-                                        @else
-                                            <span class="label label-danger">Not Understandable</span>
                                         @endif
                                     </td>
                                     <td>

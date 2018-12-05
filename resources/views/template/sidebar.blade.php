@@ -20,13 +20,34 @@
                     IN+
                 </div>
             </li>
-            <li>
+            <li class="<?= Request::segment(1)== "home"?"active":"";?>">
                 <a href="{{route('home')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li>
-                <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">All Complaints</span><span class="fa arrow"></span></a>
+            <li class="<?= Request::segment(1)== "complaint" || 'comp' ?"active":"";?>">
+                <a href="#">
+                    <i class="fa fa-list-alt"></i> 
+                    <span class="nav-label">All Complaints</span>
+                    <span class="fa arrow"></span>
+                </a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="{{ route('complaint.index') }}">Complaints</a></li>
+                    <li class="<?= Request::segment(1)== "complaint"?"active":"";?>">
+                        <a href="{{ route('complaint.index') }}">Complaints</a>
+                    </li>
+                    <li class="<?= Request::segment(2)== "pending"?"active":"";?>">
+                        <a href="{{ route('pending') }}">Pending</a>
+                    </li>
+                    <li class="<?= Request::segment(2)== "inprogress"?"active":"";?>">
+                        <a href="{{ route('inprogress') }}">In Progress</a>
+                    </li>
+                    <li class="<?= Request::segment(2)== "irrelevant"?"active":"";?>">
+                        <a href="{{ route('irrelevant') }}">Irrelevant</a>
+                    </li>
+                    <li class="<?= Request::segment(2)== "not_understandable"?"active":"";?>">
+                        <a href="{{ route('not_understandable') }}">Not Understandable</a>
+                    </li>
+                    <li class="<?= Request::segment(2)== "completed"?"active":"";?>">
+                        <a href="{{ route('completed') }}">Completed</a>
+                    </li>
                 </ul>
             </li>
             <li>
