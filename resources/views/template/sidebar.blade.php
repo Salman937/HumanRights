@@ -51,13 +51,13 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Awareness</span></a>
+                <a href="{{ route('awareness.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Awareness</span></a>
             </li>
             <li>
                 <a href="{{ route('announcement.index') }}"><i class="fa fa-th-list"></i> <span class="nav-label">Announcements</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Districts</span></a>
+                <a href="{{ route('district.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Districts</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Categories</span><span class="fa arrow"></span></a>
