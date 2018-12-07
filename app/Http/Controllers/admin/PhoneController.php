@@ -4,11 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\District;
+use App\Phone;
 use DB;
 use Session;
 
-class DistrictsController extends Controller
+class PhoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class DistrictsController extends Controller
      */
     public function index()
     {
-        $data['heading']    = 'District List';
-        $data['district'] = District::all();
+        $data['heading']    = 'Phone Directory List';
+        $data['phone'] = Phone::all();
 
-        return view('admin.district.list')->with($data);
+        return view('admin.phone.list')->with($data);
     }
 
     /**
@@ -42,16 +42,22 @@ class DistrictsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'designation' => 'required',
+            'office_number' => 'required'
         ]);
-        DB::table('districts')->insert([
-            'name' => $request->name,
-            'slug' =>str_slug($request->name)
-        ]);
+
+        $phone = new Phone;
+
+        $phone->name = $request->name;
+        $phone->designation = $request->designation;
+        $phone->office_number = $request->office_number;
+        
+        $phone->save();
 
         Session::flash('success','Your data is save.');
         
-        return redirect()->route('district.index');
+        return redirect()->route('phone.index');
     }
 
     /**
@@ -73,9 +79,9 @@ class DistrictsController extends Controller
      */
     public function edit($id)
     {
-        $data['heading'] = 'Edit Awareness';
-        $data['district'] = District::where('district_id',$id)->first();
-        return view('admin.district.edit')->with($data);
+        $data['heading'] = 'Edit Phone Directory';
+        $data['phone'] = Phone::find($id);
+        return view('admin.phone.edit')->with($data);
     }
 
     /**
@@ -88,24 +94,22 @@ class DistrictsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'designation' => 'required',
+            'office_number' => 'required'
         ]);
 
-        // $district = District::where('district_id',$id)->first();
+        $phone = Phone::find($id);
 
-        // $district->name = $request->name;
-        // $district->slug = str_slug($request->name);
+        $phone->name = $request->name;
+        $phone->designation = $request->designation;
+        $phone->office_number = $request->office_number;
         
-        // $district->save();
-        DB::table('districts')->where('district_id',$id)
-                             ->update([
-                                    'name' => $request->name,
-                                    'slug' =>str_slug($request->name)
-                                ]);
+        $phone->save();
 
         Session::flash('success','Your Data Is Updated.');
         
-        return redirect()->route('district.index');
+        return redirect()->route('phone.index');
     }
 
     /**
@@ -116,7 +120,7 @@ class DistrictsController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('districts')->where('district_id', $id)->delete();
+        DB::table('phone_dir')->where('id', $id)->delete();
 
         Session::flash('success','Record is deleted seccussfully');
         return redirect()->back();

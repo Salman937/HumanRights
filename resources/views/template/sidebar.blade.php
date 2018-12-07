@@ -47,7 +47,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Phone Directory</span></a>
+                <a href="{{ route('phone.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Phone Directory</span></a>
             </li>
         </ul>
 

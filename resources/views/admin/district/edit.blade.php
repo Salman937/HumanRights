@@ -10,43 +10,18 @@
                     @include('include.error')
                 </div>
                 <div class="ibox-content"> 
-                    <form action="{{ route('awareness.update',[$awareness->id]) }}" method="post" class="form-horizontal">
+                    <form action="{{ route('district.update',[$district->district_id]) }}" method="post" class="form-horizontal">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
-                        {{-- <div class="form-group">
-                            <label class="col-sm-2 control-label">Category</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="category" value="{{ $announcement->cat_name }}">
-                            </div>
-                        </div> --}}
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Title <span class="text-danger">*</span></label> 
+                            <label class="col-sm-2 control-label">Name <span class="text-danger">*</span></label> 
                             <div class="col-sm-7">
-                                <input type="text" placeholder="Title" required name="title" value="{{ $awareness->title }}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Description <span class="text-danger">*</span></label> 
-                            <div class="col-sm-7">
-                                <input type="text" placeholder="Description" required value="{{ $awareness->description }}" name="description" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Previous Image </label> 
-                            <div class="col-sm-7">
-                                <img src="{{ $awareness->image }}" width="70px" height="50px" style="border-radius: 3px; margin-bottom: 1%;" alt="{{ $awareness->image }}">
-                                <input type="hidden" name="pre_image" value="{{ $awareness->image }}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Image </label> 
-                            <div class="col-sm-7">
-                                <input type="file" name="image" class="form-control">
+                                <input type="text" placeholder="Name" required name="name" value="{{ $district->name }}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">Update Awareness</button>
+                                <button class="btn btn-primary" type="submit">Update District</button>
                             </div>
                         </div>
                     </form>

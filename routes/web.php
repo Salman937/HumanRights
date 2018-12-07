@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('complaint', 'admin\ComplaintsController');
 	Route::resource('awareness', 'admin\AwarenessController');
 	Route::resource('district', 'admin\DistrictsController');
+	Route::resource('phone', 'admin\PhoneController');
 });
 
 Route::group(['middleware' => 'auth'], function () {
