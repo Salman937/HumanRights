@@ -15,7 +15,7 @@ class UserComplaintsController extends Controller
     {
     	$user = User::find(Auth::guard('api')->id());
 
-    	if (! $user) 
+    	if (!$user) 
     	{
     		return response()->json([
 
@@ -41,7 +41,8 @@ class UserComplaintsController extends Controller
     		]);
     	}
 
-    	$complaint_details = DB::table('user_complaint_register')
+		$complaint_details = DB::table('user_complaint_register')
+			 ->join('complaint_status','complaint_status.id','=','user_complaint_register.status_id')
              ->where('user_id',$request->user_id)
              ->get();
 

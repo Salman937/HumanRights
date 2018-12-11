@@ -8,9 +8,6 @@
                 <div class="ibox-title">
                     <h5>{{ $heading }}</h5>
                     @include('include.error')
-                    <div class="ibox-tools">
-                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add First Category</a>
-                    </div>
                 </div>
                 <div class="ibox-content">
                   <div class="table-responsive">
@@ -48,7 +45,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-xs">
+                                        <a href="{{ route('complaint.edit',['id' => $complaint->complaint_id]) }}" class="btn btn-primary btn-xs">
                                             <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                         </a>
                                         <a href="#" class="btn btn-danger btn-xs">
@@ -66,31 +63,6 @@
         </div>
     </div>
 </div> 
-<div id="modal-form" class="modal fade" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Add First Category (Head Category)</h3>
-                        <p>&nbsp;</p>
-                        <form action="{{ route('category.store') }}" method="post" class="form-horizontal">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label>Category <span class="text-danger">*</span></label> 
-                                <input type="text" placeholder="Enter Category Name" required name="category" class="form-control">
-                            </div>
-                            <p>&nbsp;</p>
-                            <div>
-                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Save</strong></button>
-                            </div>
-                        </form>
-                    </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('styles')

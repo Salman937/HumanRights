@@ -17,7 +17,7 @@ class AwarenessController extends Controller
                 'success' => 'true',
                 'status'  => 200,
                 'message' => 'Awareness Data',
-                'All categories' => $awareness,
+                'awareness' => $awareness,
         	]);
     }
 }

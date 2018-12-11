@@ -107,6 +107,7 @@ class RegisterUserComplaintController extends Controller
 			'person_phone_number' => $request->person_phone_number,
 			'location' => $request->location,
 			'person_email' => $request->person_email,
+			'status_id' => 1,
 			'person_address' => $request->person_address,
 			'image' => empty($imagesPath) ? 'Null' : implode(',', $imagesPath),
 			'audio' => empty($upload_audio) ? 'Null' : $upload_audio,
@@ -128,14 +129,6 @@ class RegisterUserComplaintController extends Controller
 	{
 		#API access key from Google API’s Console
 		define('API_ACCESS_KEY', 'AAAAr226zMg:APA91bHsEv3XCCM7aM5CCVAWt5Gi2ntBmYa5CI2HXmGK6qNLa4gEpTErrIK8BjEPGv8g549kp5Uni-urom5KIrukozzRFFPcPfAAUWIxXdTHAJ44kNmktDE-4Sx1E0d26bJGf1SgM5FR');
-
-		$data = array
-		(
-			"city" => "swat",
-			"blood" => "B+",
-			"name" => "Salman",
-			"phone" => "098798798798"
-		);
 
 		$arr = array(
 			'complaint_id' => 1,

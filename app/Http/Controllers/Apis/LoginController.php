@@ -53,7 +53,7 @@ class LoginController extends Controller
 	    		return response()->json([
 	    			'success'   => 'false',
 	    			'status'    => '401',
-	    			'message'   => 'Your Mobile Number OR Password might be Incorrect',
+	    			'message'   => 'Your CNIC OR PASSWORD might be Incorrect',
 	    		]);
 	    	}	
     }

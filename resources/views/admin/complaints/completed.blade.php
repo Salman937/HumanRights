@@ -8,9 +8,6 @@
                 <div class="ibox-title">
                     <h5>{{ $heading }}</h5>
                     @include('include.error')
-                    <div class="ibox-tools">
-                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add First Category</a>
-                    </div>
                 </div>
                 <div class="ibox-content">
                   <div class="table-responsive">

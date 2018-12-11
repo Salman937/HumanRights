@@ -23,7 +23,7 @@
             <li class="<?= Request::segment(1)== "home"?"active":"";?>">
                 <a href="{{route('home')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li class="<?= Request::segment(1)== "complaint" || 'comp' ?"active":"";?>">
+            <li class="<?= Request::segment(1)== "complaint" || Request::segment(1)== "comp" ?"active":"";?>">
                 <a href="#">
                     <i class="fa fa-list-alt"></i> 
                     <span class="nav-label">All Complaints</span>
@@ -50,13 +50,13 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="<?= Request::segment(1)== "awareness"?"active":"";?>">
                 <a href="{{ route('awareness.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Awareness</span></a>
             </li>
-            <li>
+            <li class="<?= Request::segment(1)== "announcement"?"active":"";?>">
                 <a href="{{ route('announcement.index') }}"><i class="fa fa-th-list"></i> <span class="nav-label">Announcements</span></a>
             </li>
-            <li>
+            <li class="<?= Request::segment(1)== "district"?"active":"";?>">
                 <a href="{{ route('district.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Districts</span></a>
             </li>
             <li>
