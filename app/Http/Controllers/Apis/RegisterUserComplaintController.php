@@ -108,6 +108,7 @@ class RegisterUserComplaintController extends Controller
 			'location' => $request->location,
 			'person_email' => $request->person_email,
 			'status_id' => 1,
+			'sub_complaint_type2' => $request->sub_complaint_type2,
 			'person_address' => $request->person_address,
 			'image' => empty($imagesPath) ? 'Null' : implode(',', $imagesPath),
 			'audio' => empty($upload_audio) ? 'Null' : $upload_audio,

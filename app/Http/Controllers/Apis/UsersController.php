@@ -38,10 +38,9 @@ class UsersController extends Controller
 			]);
 		}
 
-		$code = str_random(6);
+		$code = $this->generatePIN();
 
 		$user = User::create([
-
 			'name' => $request->name,
 			'mobile_no' => $request->mobile_no,
 			'cnic' => $request->cnic,
@@ -134,7 +133,7 @@ class UsersController extends Controller
 			]);
 		} else {
 
-			$code = str_random(6);
+			$code = $this->generatePIN();
 
 			$to = $request->email;
 
@@ -227,5 +226,16 @@ class UsersController extends Controller
                 'message' => 'Password Can not updated',
             ]);
         }
-    }
+	}
+	//Our custom function.
+	public function generatePIN($digits = 4){
+		$i = 0; //counter
+		$pin = ""; //our default pin is blank.
+		while($i < $digits){
+			//generate a random number between 0 and 9.
+			$pin .= mt_rand(0, 9);
+			$i++;
+		}
+		return $pin;
+	}
 }

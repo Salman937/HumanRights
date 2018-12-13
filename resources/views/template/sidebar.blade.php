@@ -2,12 +2,13 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element"> <span>
-                        <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                <div class="dropdown profile-element text-center"> <span>
+                        <img alt="image" class="img-circle" src="{{ asset('images/user-default.png') }}" height="100"/>
                          </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                         </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">
+                            {{Auth::user()->name}}
+                        </strong> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
@@ -54,7 +55,7 @@
                 <a href="{{ route('awareness.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Awareness</span></a>
             </li>
             <li class="<?= Request::segment(1)== "announcement"?"active":"";?>">
-                <a href="{{ route('announcement.index') }}"><i class="fa fa-th-list"></i> <span class="nav-label">Announcements</span></a>
+                <a href="{{ route('announcement.index') }}"><i class="fa fa-bullhorn" aria-hidden="true"></i> <span class="nav-label">Announcements</span></a>
             </li>
             <li class="<?= Request::segment(1)== "district"?"active":"";?>">
                 <a href="{{ route('district.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Districts</span></a>
@@ -68,7 +69,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Phone Directory</span></a>
+                <a href="{{ route('phone.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Phone Directory</span></a>
             </li>
         </ul>
 

@@ -48,9 +48,14 @@
                                         <a href="{{ route('complaint.edit',['id' => $complaint->complaint_id]) }}" class="btn btn-primary btn-xs">
                                             <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
+                                        <form action="{{ route('complaint.destroy', ['id' => $complaint->complaint_id]) }}" method="POST">
+                {{ method_field('DELETE') }}
+                {{ csrf_field() }}
+                <button type="submit" class="btn btn-danger btn-xs">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </form>
+                                        
 
                                     </td>
                                 </tr>
@@ -67,12 +72,12 @@
 
 @section('styles')
     <!-- data table  -->
-    <link href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('scrpits')
     <!-- data table -->
-    <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('public/js/plugins/dataTables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

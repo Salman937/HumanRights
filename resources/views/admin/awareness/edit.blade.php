@@ -10,7 +10,7 @@
                     @include('include.error')
                 </div>
                 <div class="ibox-content"> 
-                    <form action="{{ route('awareness.update',[$awareness->id]) }}" method="post" class="form-horizontal">
+                    <form action="{{ route('awareness.update',[$awareness->id]) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         {{-- <div class="form-group">

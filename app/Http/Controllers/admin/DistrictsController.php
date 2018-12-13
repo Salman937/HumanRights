@@ -41,17 +41,13 @@ class DistrictsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request,[
             'name' => 'required'
         ]);
-
-        $district = new District;
-
-        $district->name = $request->name;
-        $district->slug = $request->name;
-        
-        $district->save();
+        DB::table('districts')->insert([
+            'name' => $request->name,
+            'slug' =>str_slug($request->name)
+        ]);
 
         Session::flash('success','Your data is save.');
         
@@ -78,8 +74,8 @@ class DistrictsController extends Controller
     public function edit($id)
     {
         $data['heading'] = 'Edit Awareness';
-        $data['awareness'] = Awareness::find($id);
-        return view('admin.awareness.edit')->with($data);
+        $data['district'] = District::where('district_id',$id)->first();
+        return view('admin.district.edit')->with($data);
     }
 
     /**
@@ -92,32 +88,24 @@ class DistrictsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'title' => 'required',
-            'description' => 'required',
-            // 'image' => 'required|image'
+            'name' => 'required'
         ]);
 
-        $awareness = Awareness::find($id);
+        // $district = District::where('district_id',$id)->first();
 
-        if (!empty($request->image)) {
-            $featured = $request->image;
-            $featured_image_name = time().$featured->getClientOriginalName();
-            $featured->move('uploads/awareness/',$featured_image_name);
-            $awareness->image = asset('uploads/awareness/'.$featured_image_name);
-        }
-        else{
-            $awareness->image = $request->pre_image;
-        }
-
-
-        $awareness->title = $request->title;
-        $awareness->description = $request->description;
+        // $district->name = $request->name;
+        // $district->slug = str_slug($request->name);
         
-        $awareness->save();
+        // $district->save();
+        DB::table('districts')->where('district_id',$id)
+                             ->update([
+                                    'name' => $request->name,
+                                    'slug' =>str_slug($request->name)
+                                ]);
 
         Session::flash('success','Your Data Is Updated.');
         
-        return redirect()->route('awareness.index');
+        return redirect()->route('district.index');
     }
 
     /**
@@ -128,7 +116,7 @@ class DistrictsController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('districts')->where('id', $id)->delete();
+        DB::table('districts')->where('district_id', $id)->delete();
 
         Session::flash('success','Record is deleted seccussfully');
         return redirect()->back();

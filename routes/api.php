@@ -126,6 +126,12 @@ Route::group(['prefix' => 'categories'], function() {
 		'uses' => 'Apis\CategoriesController@thrid_category',
 		'as'   => 'thrid-category'	
 	]);
+
+	Route::post('all-sub-categories',[
+
+		'uses' => 'Apis\CategoriesController@all_sub_cat',
+		'as'   => 'all-sub-categories'	
+	]);
 });
 
 Route::post('test-notification',[

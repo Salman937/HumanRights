@@ -21,6 +21,7 @@ class ComplaintsController extends Controller
             ->select('user_complaint_register.id as complaint_id', 'users.*', 'complaint_status.*', 'user_complaint_register.*')
             ->join('users', 'users.id', '=', 'user_complaint_register.user_id')
             ->join('complaint_status', 'complaint_status.id', '=', 'user_complaint_register.status_id')
+            ->orderBy('user_complaint_register.id','desc')
             ->get();
 
         return view('admin.complaints.all_complaints')->with($data);
@@ -40,6 +41,8 @@ class ComplaintsController extends Controller
             ->where('id', $id)
             ->first();
 
+        // dd($data['complaint']);die;
+
         return view('admin.complaints.edit_complaint')->with($data);
     }
 
@@ -57,14 +60,36 @@ class ComplaintsController extends Controller
         ]);
 
         $update_comp = DB::table('user_complaint_register')
-            ->select('user_complaint_register.id as complaint_id', 'users.*', 'user_complaint_register.*')
+            ->select('user_complaint_register.*', 'users.device_token as device_token')
             ->join('users', 'users.id', '=', 'user_complaint_register.user_id')
-            ->where('users.id', $id)
+            ->where('user_complaint_register.id', $id)
             ->first();
 
-        $result = $this->notifications($update_comp->device_token, $update_comp->user_id, $update_comp->complaint_id);
+            if($update_comp->status_id == 1):
+                $status = 'Pending';
+            elseif($update_comp->status_id == 2):
+                $status = "Completed";
+            elseif($update_comp->status_id == 3):
+                $status = "In Progress";
+            elseif($update_comp->status_id == 4):
+                $status = "Irrelevant";
+            else:
+                $status = "Not Understandable";
+            endif;
 
-        echo json_encode($result);
+        $data_arr['data'] = array(
+
+                            'user_id' => $update_comp->user_id,
+                            'complaint_id' => $update_comp->id,
+                            'title' => $update_comp->subject,
+                            'decs' => $update_comp->details,
+                            'status' => $status,
+                            'status' => $status,
+                            'date' => date('d-m-y',strtotime($update_comp->created_at)),
+        );
+
+        $this->notifications($update_comp->device_token,$data_arr);
+        // echo json_encode($result);
 
         Session::flash('success', 'Complaint has been updated.');
 
@@ -79,7 +104,11 @@ class ComplaintsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('user_complaint_register')->where('id', $id)->delete();
+
+        Session::flash('success','Complaint Deleted Successfully');
+
+        return redirect()->route('complaint.index');
     }
     public function pending()
     {
@@ -137,27 +166,29 @@ class ComplaintsController extends Controller
         return view('admin.complaints.completed')->with($data);
     }
 
-    public function notifications($device_token, $user_id, $complaint_id)
+    public function notifications($device_token,$data)
     {
-		#API access key from Google API’s Console
+		#API access key from Google API's Console
         define('API_ACCESS_KEY', 'AAAAr226zMg:APA91bHsEv3XCCM7aM5CCVAWt5Gi2ntBmYa5CI2HXmGK6qNLa4gEpTErrIK8BjEPGv8g549kp5Uni-urom5KIrukozzRFFPcPfAAUWIxXdTHAJ44kNmktDE-4Sx1E0d26bJGf1SgM5FR');
 
-
-        $arr = array(
-            'complaint_id' => $user_id,
-            'user_id' => $complaint_id,
-        );
-
+        $msg = array
+         (
+             'title'    => $data['data']['title'],
+             'body'     => $data['data']['decs'],
+             'status'   => $data['data']['status'],
+             'date'     => $data['data']['date'],
+             'complaint_id'     => $data['data']['complaint_id'],
+             'user_id'     => $data['data']['user_id'],
+             'vibrate'  => 1,
+             'click_action' => 'ACTIVITY_DONOR',
+         );
+        
         $fields = array(
-            'body' => 'Someone needs your help!.',
-            'title' => 'Attention!',
-            'icon' => 'myicon',/*Default Icon*/
-            'sound' => 'mySound',/*Default sound*/
-            'vibrate' => 1,
-            'click_action' => 'ACTIVITY_DONOR',
-            'complain_data' => $arr,
+            'to'        => $device_token,
+            'notification'    => $msg,
         );
 
+        // dd($fields);
 
         $headers = array(
             'Authorization: key=' . API_ACCESS_KEY,
@@ -175,16 +206,6 @@ class ComplaintsController extends Controller
         $result = curl_exec($ch);
         curl_close($ch);
 		#Echo Result Of FireBase Server
-		//echo $result;
-
-
-
-        return [
-
-            'success' => 'true',
-            'status' => 200,
-            'to' => $device_token,
-            'data' => $fields
-        ];
+		// echo $result;
     }
 }

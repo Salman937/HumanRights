@@ -9,7 +9,7 @@
                     <h5>{{ $heading }}</h5>
                     @include('include.error')
                     <div class="ibox-tools">
-                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add District</a>
+                        <a data-toggle="modal" class="btn btn-primary btn-xs" href="#modal-form"> Add Phone Directory</a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -17,25 +17,27 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                           <tr>
-                            <th>S.No</th>
                             <th>Name</th>
+                            <th>Designation</th>
+                            <th>Office Number</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             <?php $sno = 1; ?>
-                            @foreach($district as $ann)
+                            @foreach($phone as $ann)
                               <tr class="gradeX">
-                                <td>{{ $sno++ }}</td>
-                                <td>{{$ann->name}}</td>
+                                <td>{{ $ann->name }}</td>
+                                <td>{{ $ann->designation }}</td>
+                                <td>{{ $ann->office_number }}</td>
                                 <td>
-                                    <form action="{{ URL::route('district.edit', [$ann->district_id]) }}" method="POST">
+                                    <form action="{{ URL::route('phone.edit', [$ann->id]) }}" method="POST">
                                         <input type="hidden" name="_method" value="get">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-primary btn-xs" title="Edit"><i class="fa fa-pencil"> </i></button>
                                     </form>
 
-                                    <form action="{{ URL::route('district.destroy', [$ann->district_id]) }}" method="POST">
+                                    <form action="{{ URL::route('phone.destroy', [$ann->id]) }}" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <button onclick=" return confirm('Are you sure you want to delete this record');" class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"> </i></button>
@@ -57,13 +59,21 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="m-t-none m-b">Add District</h3>
+                        <h3 class="m-t-none m-b">Add Phone Directory</h3>
                         <p>&nbsp;</p>
-                        <form action="{{ route('district.store') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <form action="{{ route('phone.store') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Name <span class="text-danger">*</span></label> 
-                                <input type="text" placeholder='Enter District Name' required name="name" class="form-control">
+                                <input type="text" placeholder='Enter Name' required name="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Designation <span class="text-danger">*</span></label> 
+                                <input type="text" placeholder='Enter Designation' required name="designation" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Office Number <span class="text-danger">*</span></label> 
+                                <input type="text" placeholder='Enter Office Number' required name="office_number" class="form-control">
                             </div>
                             <p>&nbsp;</p>
                             <div>

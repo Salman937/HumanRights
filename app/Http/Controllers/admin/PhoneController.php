@@ -4,11 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Awareness;
+use App\Phone;
 use DB;
 use Session;
 
-class AwarenessController extends Controller
+class PhoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class AwarenessController extends Controller
      */
     public function index()
     {
-        $data['heading']    = 'Awareness List';
-        $data['awareness'] = Awareness::all();
+        $data['heading']    = 'Phone Directory List';
+        $data['phone'] = Phone::all();
 
-        return view('admin.awareness.list')->with($data);
+        return view('admin.phone.list')->with($data);
     }
 
     /**
@@ -42,27 +42,22 @@ class AwarenessController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|image'
+            'name' => 'required',
+            'designation' => 'required',
+            'office_number' => 'required'
         ]);
 
-        $awareness = new Awareness;
-        
-        $featured = $request->image;
-        $featured_image_name = time().$featured->getClientOriginalName();
-        $featured->move('uploads/awareness/',$featured_image_name);
+        $phone = new Phone;
 
-
-        $awareness->title = $request->title;
-        $awareness->description = $request->description;
-        $awareness->image = asset('uploads/awareness/'.$featured_image_name);
+        $phone->name = $request->name;
+        $phone->designation = $request->designation;
+        $phone->office_number = $request->office_number;
         
-        $awareness->save();
+        $phone->save();
 
         Session::flash('success','Your data is save.');
         
-        return redirect()->route('awareness.index');
+        return redirect()->route('phone.index');
     }
 
     /**
@@ -84,9 +79,9 @@ class AwarenessController extends Controller
      */
     public function edit($id)
     {
-        $data['heading'] = 'Edit Awareness';
-        $data['awareness'] = Awareness::find($id);
-        return view('admin.awareness.edit')->with($data);
+        $data['heading'] = 'Edit Phone Directory';
+        $data['phone'] = Phone::find($id);
+        return view('admin.phone.edit')->with($data);
     }
 
     /**
@@ -99,33 +94,22 @@ class AwarenessController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'title' => 'required',
-            'description' => 'required',
-            // 'image' => 'required|image'
+            'name' => 'required',
+            'designation' => 'required',
+            'office_number' => 'required'
         ]);
 
-        $awareness = Awareness::find($id);
+        $phone = Phone::find($id);
 
-        if (!empty($request->image)) 
-        {
-            $featured = $request->image;
-            $featured_image_name = time().$featured->getClientOriginalName();
-            $featured->move('uploads/awareness/',$featured_image_name);
-            $awareness->image = asset('uploads/awareness/'.$featured_image_name);
-        }
-        else{
-            $awareness->image = $request->pre_image;
-        }
-
-
-        $awareness->title = $request->title;
-        $awareness->description = $request->description;
+        $phone->name = $request->name;
+        $phone->designation = $request->designation;
+        $phone->office_number = $request->office_number;
         
-        $awareness->save();
+        $phone->save();
 
         Session::flash('success','Your Data Is Updated.');
         
-        return redirect()->route('awareness.index');
+        return redirect()->route('phone.index');
     }
 
     /**
@@ -136,7 +120,7 @@ class AwarenessController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('awareness')->where('id', $id)->delete();
+        DB::table('phone_dir')->where('id', $id)->delete();
 
         Session::flash('success','Record is deleted seccussfully');
         return redirect()->back();

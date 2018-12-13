@@ -120,4 +120,29 @@ class CategoriesController extends Controller
                         'All Districts' => $districts,
                 ]);   
         }
+
+        public function all_sub_cat(Request $request)
+        {
+                $sub_cat = DB::table('categories')
+                        ->where([
+                                ['level','!=', 0]
+                        ])
+                        ->get();
+                if ($sub_cat->isEmpty()) {
+                        return response()->json([
+
+                                'success' => 'false',
+                                'status' => 404,
+                                'message' => 'Not Found',
+                        ]);
+                } else {
+                        return response()->json([
+
+                                'success' => 'true',
+                                'status' => 200,
+                                'message' => 'All Sub Categories',
+                                'Sub Categories' => $sub_cat,
+                        ]);
+                }
+        }
 }
